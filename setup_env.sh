@@ -30,4 +30,24 @@ echo "Installing packages from $REQUIREMENTS..."
 pip install -r "$REQUIREMENTS"
 pip install --upgrade nbformat -q
 
+# ─── Ollama ───────────────────────────────────────────────────────────────────
+
+if ! command -v ollama &> /dev/null; then
+    echo "Installing Ollama..."
+    curl -fsSL https://ollama.com/install.sh | sh
+else
+    echo "Ollama already installed: $(ollama --version)"
+fi
+
+# Start Ollama server in background if not running
+if ! pgrep -x "ollama" > /dev/null; then
+    echo "Starting Ollama server..."
+    ollama serve &
+    sleep 3  # give it time to start
+fi
+
+# Pull llama3.2:3b model
+echo "Pulling llama3.2:3b model (this may take a while)..."
+ollama pull llama3.2:3b
+
 echo "Done! All packages installed successfully."
