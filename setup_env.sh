@@ -12,7 +12,7 @@ fi
 # Create virtual environment if it doesn't exist
 if [ ! -d "$VENV_DIR" ]; then
     echo "Creating virtual environment..."
-    python3 -m venv "$VENV_DIR"
+    python3.11 -m venv "$VENV_DIR"
     echo "Virtual environment created at $VENV_DIR"
 else
     echo "Virtual environment already exists at $VENV_DIR"
